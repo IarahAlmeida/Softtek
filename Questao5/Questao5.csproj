@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Domain\Language\**" />
+    <Content Remove="Domain\Language\**" />
+    <EmbeddedResource Remove="Domain\Language\**" />
+    <None Remove="Domain\Language\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
 	<PackageReference Include="Dapper" Version="2.0.35" />
 	<PackageReference Include="Microsoft.Data.Sqlite" Version="3.1.6" />
@@ -29,21 +36,6 @@
 		<PrivateAssets>all</PrivateAssets>
 		<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 	</PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Application\Commands\Requests\" />
-    <Folder Include="Application\Commands\Responses\" />
-    <Folder Include="Application\Handlers\" />
-    <Folder Include="Application\Queries\Requests\" />
-    <Folder Include="Application\Queries\Responses\" />
-    <Folder Include="Domain\Entities\" />
-    <Folder Include="Domain\Enumerators\" />
-    <Folder Include="Domain\Language\" />
-    <Folder Include="Infrastructure\Database\CommandStore\Requests\" />
-    <Folder Include="Infrastructure\Database\CommandStore\Responses\" />
-    <Folder Include="Infrastructure\Database\QueryStore\Requests\" />
-    <Folder Include="Infrastructure\Database\QueryStore\Responses\" />
   </ItemGroup>
 
 </Project>

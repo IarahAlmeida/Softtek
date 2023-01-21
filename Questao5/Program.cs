@@ -1,17 +1,30 @@
+using FluentAssertions.Common;
 using MediatR;
+using Questao5.Application.Repositories;
+using Questao5.Application.Repositories.Interfaces;
+using Questao5.Domain.Entities;
 using Questao5.Infrastructure.Sqlite;
 using System.Reflection;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+});
 
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
 // sqlite
-builder.Services.AddSingleton(new DatabaseConfig { Name = builder.Configuration.GetValue<string>("DatabaseName", "Data Source=database.sqlite") });
+builder.Services.AddSingleton(new DatabaseConfig { Name = builder.Configuration.GetValue("DatabaseName", "Data Source=database.sqlite") });
 builder.Services.AddSingleton<IDatabaseBootstrap, DatabaseBootstrap>();
+
+// repositories
+builder.Services.AddSingleton<IRepository<Account>, AccountRepository>();
+builder.Services.AddSingleton<IMovementRepository<Movement>, MovementRepository>();
+builder.Services.AddSingleton<IRepository<Idempotency>, IdempotencyRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -41,5 +54,3 @@ app.Run();
 
 // Informações úteis:
 // Tipos do Sqlite - https://www.sqlite.org/datatype3.html
-
-
